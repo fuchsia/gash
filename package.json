@@ -3,16 +3,16 @@
   "version": "1.0.20250303",
   "description": "A tool for running javascript from the command-line (CLI). Instead of creating a CLI tool, annotate your library and gash will run it for you.",
   "keywords": [ "cli", "shell", "command line" ],
-  "homepage": "https://github.com/fuchsia/js-hell#readme",
-  "repository": "github:fuchsia/js-hell",
-  "bugs": "https://github.com/fuchsia/js-hell/issues",
+  "homepage": "https://github.com/fuchsia/gash#readme",
+  "repository": "github:fuchsia/gash",
+  "bugs": "https://github.com/fuchsia/gash/issues",
   "-- It's not importable, so skip main": "",
   "-- main": "lib/host/main.mjs",
   "directories": {
     "lib": "lib"
   },
   "devBin": {
-    "js-hell-dev": "lib/bin/cli.mjs"
+    "gash-dev": "lib/bin/cli.mjs"
   },
   "bin": "dist/gash.mjs",
   "-- files: we don't need anything other than bin, plus README, LICENCE, and package.json; all of which are auto included.": "",
@@ -20,7 +20,7 @@
   "scripts": {
     "test-debug": "node --no-warnings -- node_modules/jasmine/bin/jasmine.js --reporter=./test-data/specReporter.mjs",
     "test": "npx jasmine",
-    "mimetype-extensions-make": "js-hell lib/utils/mimetype-extensions-make.mjs node_modules/mime-db/db.json --output=lib/utils/mimetype-extensions.json",
+    "mimetype-extensions-make": "gash lib/utils/mimetype-extensions-make.mjs node_modules/mime-db/db.json --output=lib/utils/mimetype-extensions.json",
     "make-dist": "rollup -c rollup.config.mjs"
   },
   "gash": {
