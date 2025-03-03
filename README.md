@@ -15,7 +15,7 @@ Examples
 If you're hacking up a custom script, it's often easiest to annotate the
 file itself:
 ```js 
-export js_hell = `IDL=1 
+export gash = `IDL=1 
 vectorise [--force] JSON_FILE NAME 
 :: default( await $1.json(), $2, {force}) as JSON -> $1`; 
 
@@ -26,10 +26,6 @@ export default function main( json, id, {force} )
    return json;
 }
 ```
-
-The data needed is in the exported `js_hell` key (note an underscore,
-not a hyphen).
-
 Invoke this as 
 ```bash
 $ gash vertorise.mjs --force somefile.json id
@@ -40,8 +36,7 @@ $ gash vertorise.mjs somefile.json id
 ```
   
 ### Package
-Or you can describe it in the `gash` key of your package. (Note a
-hyphen here.)
+Or you can describe it in the `gash` key of your package. 
   
 #### package.json: 
 ```json 
@@ -423,7 +418,7 @@ files beginning with a '.' are not reported.
 
 This can be controlled by the `--exclude` flag. Setting it overrides all
 the defaults. (Which means the `**/.*` is lost. So for example `gash
-dir --exclude=p* .` will return `.git` file. You need to do `js_hell dir
+dir --exclude=p* .` will return `.git` file. You need to do `gash dir
 --exclude=p* --exclude=.* .` to preserve the `.*` exclusion.)
   
 To view all files, set the exclude list to the empty pattern. (For
@@ -654,7 +649,7 @@ Anything else should be an error.
   
 #### Modules
 When presented with a module, gash will `import()` it and look at the
-`js_hell` export. 
+`gash` export. 
   
 If that's a string, then that is expected to be the Interface Definition
 Language ([IDL]()) description of how to run the file.  
@@ -666,7 +661,7 @@ export function main() {
     return "Hello world!"; 
 }
 
-export const js_hell = "IDL=1 my-cmd :: main()"; 
+export const gash = "IDL=1 my-cmd :: main()"; 
 ```
 Then `gash ./my-cmd.mjs` would echo `"Hello world!"`;
 
@@ -1012,7 +1007,7 @@ _declaration_) and some historic magic.
 ### Boolean options
 Options that don't take a value are called booleans options. 
 ```js
-export const js_hell=`IDL=1 boolie [--flag] :: default(flag);
+export const gash=`IDL=1 boolie [--flag] :: default(flag);
 export default function(flag) { return flag ? "enabled" : "disabled" }
 ```
 <!-- Boolean options are always optional; i.e. they must appear in square
@@ -1027,7 +1022,7 @@ However booleans options that begin `--no-` have the "no"-prefix removed
 from their lexical name _and_ the usual semantics are reveresed. So for
 example:
 ```js
-export const js_hell=`IDL=1 nolly [--no-can-do] :: default(canDo);
+export const gash=`IDL=1 nolly [--no-can-do] :: default(canDo);
 export default function(canDo) { return canDo ? "done" : "You're kidding me, right?!" }
 ```   
 in the above, `gash nolly` retuns `"done"` <sup>(NO-UNSET)</sup> and `gash
@@ -1038,7 +1033,7 @@ It's possible to declare both a boolean option and it's negation in the
 usage; for example:
 
 ```js 
-export const js_hell=`IDL=1 tristate [--no-state] [--state] 
+export const gash=`IDL=1 tristate [--no-state] [--state] 
 :: default((state?1:-1) ?? 0)`;
 ```
 In these cases, either the option (e.g., `gash tristate --state`
@@ -1057,7 +1052,7 @@ cmd [--flag] [--flag]` throws.) <sup>(NODUP-BOOL)</sup>
 #### Recurring
 "Boolean" options may be repeated: 
 ```js
-export const js_hell = `IDL=1 loggable [(--verbose|-v)]... :: default({verbose})`; 
+export const gash = `IDL=1 loggable [(--verbose|-v)]... :: default({verbose})`; 
 ```
 Their lexical value becomes the number of time they're repeated on the
 command-line - defaulting to zero if absent. (For example, `loggable` is
@@ -1068,21 +1063,21 @@ called with `{verbose:0}`, `loggable --verbose -v` is called with
 ### STRING, STR and TEXT positionals and options.
 Positional parameters can be declared as `STRING`, `STR`, or `TEXT`:
 ```js
-export const js_hell=`IDL=1 cmd STR STRING TEXT :: default($1,$2,$3);
+export const gash=`IDL=1 cmd STR STRING TEXT :: default($1,$2,$3);
 export default function(...strings) { return strings }
 ```
 Each is passed to the javascript as [\<string>][] value.
 
 Likewise, options can be given `STRING`, `STR`, or `TEXT` values:
 ```js
-export const js_hell=`IDL=1 cmd --scheme=STR --host=STRING --path=TEXT :: default(scheme,host,path);`
+export const gash=`IDL=1 cmd --scheme=STR --host=STRING --path=TEXT :: default(scheme,host,path);`
 export default function(scheme,host,path) { return `${scheme}://${host}/${path}` }
 ```
 When options are genuinely optional (i.e. enclosed in square brackets)
 using omitted values is an error; so a default must be supplied: 
 
 ```js
-export const js_hell=`IDL=1 
+export const gash=`IDL=1 
      cmd [--scheme=STR] [--host=STRING] [--path=TEXT] 
   :: default(scheme = 'https:', host = '127.0.0.1', path = '' )`;
 ```
@@ -1472,20 +1467,20 @@ The `@option` "decorator" can be used in the bindings to create options
 without declaring them in the usage. For example:
 
 ```js
-export const js_hell = `IDL=1 
+export const gash = `IDL=1 
 cmd :: 
 default( @option(File) file, @option count = 4, { @option flag = false })` 
 ```
 is equivalent to:
 ```js
-export const js_hell = `IDL=1 
+export const gash = `IDL=1 
 cmd [--count=INT] [--flag] --file=FILE  
 :: default( file, count = 4, { flag })` 
 ```   
 
 `@option` decorates the _identifier_; so for example:
 ```js
-export const js_hell = `IDL=1
+export const gash = `IDL=1
 cmd 
 :: default( {useThing: @option thing } )`
 ```
@@ -1496,13 +1491,13 @@ default an option, the types must agree. <sup>(@OPTION-TYPEMATCH)</sup> For
 example, this is illegal:
 
 ```js
-export const js_hell = `IDL=1 cmd :: default(@option(String) foo = 4)`;
+export const gash = `IDL=1 cmd :: default(@option(String) foo = 4)`;
 ```
 
 
 <!-- Proposed shortening:
 ```
-export const js_hell = `IDL=1 cmd :: default( @<File> file, @: count = 4, { @: flag = false })` 
+export const gash = `IDL=1 cmd :: default( @<File> file, @: count = 4, { @: flag = false })` 
 ```
 
 The reason for using a decorator is it migth oneday become legal in js -
@@ -1570,7 +1565,7 @@ as an argument.
 
 ```js 
 //! examples/cat.mjs
-export const js_hell = "IDL=1 cat FILENAME :: default($1.toURL(),{fetch})";
+export const gash = "IDL=1 cat FILENAME :: default($1.toURL(),{fetch})";
 
 export default async function cat( url, {fetch} ) {
     return await (await fetch(url)).text();    
