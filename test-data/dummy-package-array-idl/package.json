@@ -1,0 +1,9 @@
+{   
+    "name":"dummy-package",
+    "main": "main.mjs",
+    "gash": [
+        "IDL=1",
+        "dummy-package -- Does nowt!",
+        ":: default()"
+    ]
+} 

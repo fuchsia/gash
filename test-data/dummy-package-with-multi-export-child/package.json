@@ -1,0 +1,9 @@
+{   
+    "name":"dummy-package",
+    "gash": {
+        "child": "*" 
+    },
+    "dependencies": {
+        "child": "0.0"
+    } 
+} 
