@@ -1,0 +1,10 @@
+{
+    "gash": {
+        "#c1" : "IDL=1 c1 :: gash( `echo 'Vanity! Vanity! All is vanity!'` )",
+        "#shuf": "IDL=1 shuf [--seed=COUNT] COUNT :: gash( [ `shuffle`, `--seed`, `${seed}` ?? `4`, `0`, `${$1}`, `2` ] )",
+        "#e1": "IDL=1 e1 :: with(gash) gash( 'echo1 hello' )",
+        "#e2": "IDL=1 e2 :: gash( 'echo1 hello' ) as String",
+        "#e3": "IDL=1 e3 :: gash( 'echo1 hello' ).thing",
+        "#e4": "IDL=1 e4 FILE :: gash( 'echo1 hello' ) -> $1"
+    }
+} 
