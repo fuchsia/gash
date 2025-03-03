@@ -80,10 +80,9 @@ the technical debt to prove it.) A recent round of tidying to get it fit
 for public release has only highlighted the many limitations and
 frustrations that remain. (Including the documentation.)  
 
-However gash's too bloody useful to keep locked up. (And even more
-useful if when you use `xwh` and can run CGI from the command line using
-a CLI interface.) Hopefully the shortcomings will be rectified over
-time. But despite the 1.x tag it is really still alpha. 
+However gash's too bloody useful to keep locked up. Hopefully the
+shortcomings will be rectified over time. But despite the 1.x tag it is
+really still alpha. 
 
 Also the principle repo is mercurial. I intended to switch fully to git,
 as I become familiar with the gitisms - assuming I can master them and
@@ -108,9 +107,9 @@ It's gash's job to manage compatibility issues. (The `IDL=` tag that
 all IDL declarations begin with solve the internal compatibility. You
 can similary invoke scripts with `CLI=` tag.)
 
-gash install a single binary: `gash.mjs` which is a rolled up
-an minified (`dist/gash.mjs`) which can be moved about anywhere and 
-used, as is.
+gash installs a single binary: `gash.mjs` which is a rolled up and
+minified (`dist/gash.mjs`) which can be moved about anywhere and used,
+as is.
 
 ### Optional Dependencies
 gash has an _optional_ dependency on better-sqlite3. The intent is to
