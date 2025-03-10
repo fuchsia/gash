@@ -6,7 +6,7 @@
     "./../formatOutput.mjs#csv":  "IDL=1 OUTPUT_MIMETYPE=\"text/csv\" csv -- Output a JSON table as CSV.\n [--input=JSON_FILE] :: with( toCSV,fromObjectArray ) toCSV( fromObjectArray( input.toJSON() ), { eol: EOL }  )", 
     "./../formatOutput.mjs#psv":  "IDL=1 psv -- Output a JSON table as pipe-separated variables - suitable for use as a markdown table\n [--input=JSON_FILE] :: with( toMarkdown,fromObjectArray ) toMarkdown( fromObjectArray( input.toJSON() ), { eol: EOL }  )", 
     "#echo":       "IDL=1 echo TEXT... :: with() TEXT.join(' ') as String",
-    "#echo-value":  "IDL=1 -- Echo an option value instead of a positional. (For testing.)\n echo-value --value=TEXT :: with() value as String",
+    "#echo-value":  "IDL=1 -- Echo an option value instead of a positional. (Used for testing.)\n echo-value --value=TEXT :: with() value as String",
     "#echo1":       "IDL=1 -- Single argument version of echo. (Because lists can't contain expression.)\necho1 TEXT :: with() $1 as String",
     "#echo-json":   "IDL=1 -- Used for testing: output the JSON\nOUTPUT_FORMAT=JSON0 echo-json JSON :: with() $1",
     "#get":      [

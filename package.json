@@ -1,6 +1,6 @@
 {
   "name": "gash",
-  "version": "1.0.20250303",
+  "version": "1.0.20250310",
   "description": "A tool for running javascript from the command-line (CLI). Instead of creating a CLI tool, annotate your library and gash will run it for you.",
   "keywords": [ "cli", "shell", "command line" ],
   "homepage": "https://github.com/fuchsia/gash#readme",

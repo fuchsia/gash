@@ -1625,7 +1625,17 @@ shouldn't be messed with. <sup>(Tested needed)</sup>
 #### `sessionId`
 This is always set to the NIL UUID
 `00000000-0000-0000-0000-000000000000` (Although that may change in the
-future.) It's provided for compatibility with the web host, `xwh`. 
+future.) It's provided for compatibility with the web host, `xwh`.
+
+
+## Changes
+
+### 1.0.20250310
+ - FIXED help throwing errors for scriptlets with non mandatory options
+   (e.g. `gash help echo-value` no longer throw). 
+
+ - The help message calls us `gash` rather than the deprecated
+   `js-hell`.   
  
 
 [\<ArrayBuffer>]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
