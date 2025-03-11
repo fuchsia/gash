@@ -9,60 +9,59 @@ script becomes a plugin for gash.)
 To learn how to write these annotations, skip straight to the
 [IDL](#IDL) section.
 
-Examples 
-----
-### Custom script
-If you're hacking up a custom script, it's often easiest to annotate the
-file itself:
-```js 
-export gash = `IDL=1 
-vectorise [--force] JSON_FILE NAME 
-:: default( await $1.json(), $2, {force}) as JSON -> $1`; 
+## Example: Custom script
+If you're hacking together a custom script, it's often easiest to directly annotate the
+file by exporting a variable called `gash`. For example,
+ - vectorise.mjs:
+   ```js
+   export const gash = `IDL=1 
+   vectorise [--force] JSON_FILE NAME 
+   :: default( await $1.json(), $2, {force}) as JSON -> $1`; 
 
-export default function main( json, id, {force} )
-   /* modify json */
-    ...
-   /* return to get it saved out */ 
-   return json;
-}
-```
-Invoke this as 
+   export default function main( json, id, {force} )
+       /* modify json */
+       ...
+       /* return to get it saved out */ 
+       return json;  
+   }
+   ```
+The above can be invoked as:
 ```bash
-$ gash vertorise.mjs --force somefile.json id
+$ gash vectorise.mjs --force somefile.json id
 ```
-or
+or as:
 ```bash
-$ gash vertorise.mjs somefile.json id
+$ gash vectorise.mjs somefile.json id
 ```
   
-### Package
-Or you can describe it in the `gash` key of your package. 
+## Example: Package
+Or you can annotate scripts in the `gash` key of your package. 
   
-#### package.json: 
-```json 
-{
-  "name": "my-script",
-  "main": "main.mjs",
-  "gash": [
-      "IDL=1",
-      "my-script                -- Process PNG_FILEs to produce our data.", 
-      "    [--iterations=COUNT] -- Number of times to process data.",
-      "    PNG_FILE... ",
-      ":: crunchData( $1.map( file => file.toBuffer()) ,{iterations=1})"
-  ]
-}
-```
-#### main.mjs: 
-```js
-import Processor from "./Processor.mjs"; 
+ - package.json: 
+   ```json 
+   {
+      "name": "my-script",
+      "main": "main.mjs",
+      "gash": [
+           "IDL=1",
+           "my-script                -- Process PNG_FILEs to produce our data.", 
+           "    [--iterations=COUNT] -- Number of times to process data.",
+           "    PNG_FILE... ",
+           ":: crunchData( $1.map( file => file.toBuffer()) ,{iterations=1})"
+      ]
+   }
+   ```
+ - main.mjs: 
+   ```js
+   import Processor from "./Processor.mjs"; 
 
-export function crunchData( buffers, {iterations}) {
-    const processor = new Procesor;
-    for (const b of buffers)    
-        processor.add( b, iterations );  
-   return processor.stats();
-}
-```   
+   export function crunchData( buffers, {iterations}) {
+       const processor = new Procesor;
+       for (const b of buffers)    
+           processor.add( b, iterations );  
+      return processor.stats();
+   }
+   ```   
 And invoked as 
 ```bash
 gash my-script --iterations=3 **/*.png 
