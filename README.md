@@ -1629,13 +1629,16 @@ future.) It's provided for compatibility with the web host, `xwh`.
 
 ## Changes
 
-### 1.0.20250310
- - FIXED help throwing errors for scriptlets with non mandatory options
-   (e.g. `gash help echo-value` no longer throw). 
+### 1.0.20250311
+ - FIXES some glaring typos in the introductary examples, and rewords
+   them to hopefully make them clearer. 
 
- - The help message calls us `gash` rather than the deprecated
-   `js-hell`.   
- 
+### 1.0.20250310
+ - FIXES `help` throwing errors for scriptlets with mandatory options
+   (e.g. `gash help echo-value` no longer throws). 
+
+ - FIXES: `help` calling us `js-hell`; it nows calls us `gash` ;)
+    
 
 [\<ArrayBuffer>]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
 
