@@ -91,7 +91,7 @@ although there may still be bugs on old versions.
 
 For gash to use sqlite, it needs a version of node with the sqlite
 module. (node 23.4 is when it becomes unflagged.) But it's lazily loaded
-and no attempt to import it will be made until  
+and no attempt to import it will be made until
 [`file.database()`](#databasetable_name) is called - so it won't impede
 gash being used on earlier versions, provided they don't called
 `file.database()`
