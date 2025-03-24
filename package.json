@@ -1,8 +1,12 @@
 {
   "name": "gash",
-  "version": "1.0.20250311",
+  "version": "1.0.20250324",
   "description": "A tool for running javascript from the command-line (CLI). Instead of creating a CLI tool, annotate your library and gash will run it for you.",
-  "keywords": [ "cli", "shell", "command line" ],
+  "keywords": [
+    "cli",
+    "shell",
+    "command line"
+  ],
   "homepage": "https://github.com/fuchsia/gash#readme",
   "repository": "github:fuchsia/gash",
   "bugs": "https://github.com/fuchsia/gash/issues",
@@ -31,14 +35,11 @@
   "license": "BSD-1-Clause",
   "devDependencies": {
     "@rollup/plugin-json": "^6.1.0",
+    "jasmine": "^5.5.0",
     "mime-db": "^1.52.0",
-    "terser": "^5.34.1",
-    "jasmine": "^5.5.0"
-  },
-  "optionalDependencies": {
-    "better-sqlite3": "^10.0.0"
+    "terser": "^5.34.1"
   },
   "engines": {
-      "node": ">=16.14"
+    "node": ">=16.14"
   }
 }

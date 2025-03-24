@@ -84,10 +84,17 @@ my innate desire to swim against the tide doesn't make me stick to hg.
 
 Requirements
 ------- 
-It was my aim that gash shouldn't support any version of node.js
-before the most recent LTS release. That didn't survive contact with the
-real world (long, hard stare at glitch) and it probably runs on node
-16.14, although there may still be bugs.
+It was my aim that gash shouldn't support any version of node.js before
+the most recent LTS release. That didn't survive contact with the real
+world (long, hard stare at glitch) and it probably runs on node 16.14,
+although there may still be bugs on old versions.
+
+For gash to use sqlite, it needs a version of node with the sqlite
+module. (node 23.4 is when it becomes unflagged.) But it's lazily loaded
+and no attempt to import it will be made until  
+[`file.database()`](#databasetable_name) is called - so it won't impede
+gash being used on earlier versions, provided they don't called
+`file.database()`
 
 Installation 
 ----
@@ -104,13 +111,6 @@ can similary invoke scripts with `CLI=` tag.)
 gash installs a single binary: `gash.mjs` which is a rolled up and
 minified (`dist/gash.mjs`) which can be moved about anywhere and used,
 as is.
-
-### Optional Dependencies
-gash has an _optional_ dependency on better-sqlite3. The intent is to
-retire this for node's internal implementation when it becomes stable.
-(But some of my tools depends on better-sqlite's features.) It's only
-required if you call the `database()` method on `File` and otherwise
-won't be used.  
 
 Project axiom
 ------
@@ -1249,9 +1249,17 @@ This returns an sqlite3 database. The following files are supported:
     will be a column for each field in the object; exactly as if you
     called `console.table()` on it. No write.        
             
-Currently, this uses better-sqlite3 and relies on that being available.
-But the plan is to transition to node's sqlite implementation once that
-becomes stable. 
+This now uses node's own sqlite implementation (i.e. `node:sqlite`)
+Therefore it's only available in node >= 23.4. The version of sqlite
+used will be tied to the version of node. 
+
+NB the first two public releases of gash used better-sqlite3. I switched
+across in 1.0.202503XX. I was looking at introducing a compatibility
+layer but it proved easier to fix up my code - and nobody seemed to be
+using gash yet so there was nobody else's code to break. If gash picks
+up users, that kind of change will be accompanied by a switch in IDL
+level.
+
 
 ##### `toJSON()`
 A convenience method that parses the contents of the file with
@@ -1628,6 +1636,17 @@ future.) It's provided for compatibility with the web host, `xwh`.
 
 
 ## Changes
+
+### 1.0.20253XX
+ - Switches from better-sqlite3 to node's sqlite implementation.
+   Hopefully this doesn't hurt anyone. But nobody seems to be using gash
+   yet, and the cost of porting my own code to node's sqlite was cheaper
+   than introducting the necessary compatibility hacks. (Node is missing
+   `pluck`, anonymous params are handled differently, there
+   are&mdash;curently&mdash;no builtin aggregate functions. Otherwise,
+   everthing worked.)
+
+ - FIXES Objects with a null prototype causing errors when realised.
 
 ### 1.0.20250311
  - FIXES some glaring typos in the introductary examples, and rewords
