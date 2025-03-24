@@ -1637,7 +1637,7 @@ future.) It's provided for compatibility with the web host, `xwh`.
 
 ## Changes
 
-### 1.0.20253XX
+### 1.0.20250324
  - Switches from better-sqlite3 to node's sqlite implementation.
    Hopefully this doesn't hurt anyone. But nobody seems to be using gash
    yet, and the cost of porting my own code to node's sqlite was cheaper
