@@ -141,8 +141,8 @@ depend on the SCRIPTLET.
 SCRIPTLET can be a javascript source file, a JSON file, a directory
 containing `package.json`; it can be a module somewhere in the package
 tree; or it can be one of the builtins. `gash help` list builtins and
-modules found in the package tree. See [Package resolution]() for more
-details.
+modules found in the package tree. See [Package
+resolution](#Package-resolution) for more details.
 
 
 ### Coventions 
@@ -224,7 +224,7 @@ gash scriptlet --option='${value}' '*.html'
 ```
 
 This flexibility, however, can be a gotcha if you are trying to invoke a
-scriptlet with a space in the filename _and no other arguments_.  
+scriptlet with a space in the filename _and no other arguments_.
 currently no work around. 
 
 
@@ -387,8 +387,8 @@ over to node's globs and equivalent functions.
     
 #### Recursive handling of directories.
 If a scriptlet wants a glob, and a directory is given, then `**` will be
-appended to it. (For example, `gash dir some_dir` is the same as  
-`gash '"dir some_dir/**"'`)
+appended to it. (For example, `gash dir some_dir` is the same as `gash
+'"dir some_dir/**"'`)
   
 BUT, if a scriptlet specifies a type of file (for example, it specifes
 JSON files) then the glob will have the relevant extension(s) (so
@@ -425,6 +425,14 @@ example `gash dir --exclude="" .` shows everything.)
     
 <aside class=issue>Should `--exclude` be handled with a NOT flag in the
 glob? How often do people really use these complicated globs?</aside>
+
+#### `--min-date=DATE`
+
+Only return files that are newer than DATE; for example `gash '"dir
+--min-date=2025-01-01 **/*.js"'` lists all files ending `.js` that were
+produced on after the January 1st 2025. 
+
+Date parsing is standard date parsing.
 
 
 ### Pipelines and redirection
@@ -581,7 +589,10 @@ These option can appear anywhere:
        
 
 #### Options
-          
+  * `--recurse`/`--no-recurse`, `--exclude=GLOB` and `--min-date=DATE` 
+    are all described under [Recursion and
+    wildcards](#recursion-and-wildcards)
+             
 
 ### Scriptlet Resolution 
 gash can run any javascript function - provided it has information on
@@ -1107,13 +1118,10 @@ the murmur3 32bit hash of the string's utf8 encoding.)
 Positional and named options can declared can be declared as `FILE`,
 `FILE_NAME` and `FILENAME`. 
 
-`FILE` values are passed to the javascript as
-[\<Buffer>][] objects (where available)
-or
-[\<Uint8Array>][] 
-(platforms without buffer) - see `File.toBuffer()` <sup>(FILE-REAL)</sup>  
-FILE_NAME and FILENAME options are passed to the javascript as strings.
-<sup>(FN-REAL)</sup>
+`FILE` values are passed to the javascript as [\<Buffer>][] objects
+(where available) or [\<Uint8Array>][] (platforms without buffer) - see
+`File.toBuffer()` <sup>(FILE-REAL)</sup> FILE_NAME and FILENAME options
+are passed to the javascript as strings. <sup>(FN-REAL)</sup>
 
 However, inside gash (i.e. in the binding) they all have the same
 API, roughly modelled on the File API
@@ -1637,6 +1645,10 @@ future.) It's provided for compatibility with the web host, `xwh`.
 
 ## Changes
 
+### 1.0.20250404
+ - ADD `Date` is now available as a constructor.
+ - ADD `--min-date=DATE` for globs.
+
 ### 1.0.20250324
  - Switches from better-sqlite3 to node's sqlite implementation.
    Hopefully this doesn't hurt anyone. But nobody seems to be using gash
@@ -1657,7 +1669,9 @@ future.) It's provided for compatibility with the web host, `xwh`.
    (e.g. `gash help echo-value` no longer throws). 
 
  - FIXES: `help` calling us `js-hell`; it nows calls us `gash` ;)
-    
+
+ 
+         
 
 [\<ArrayBuffer>]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
 
